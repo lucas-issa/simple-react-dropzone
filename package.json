@@ -1,0 +1,51 @@
+{
+  "name": "simple-react-dropzone",
+  "version": "0.1.0",
+  "license": "LGPL-3.0",
+  "author": "lucas.issa@gmail.com",
+  "keywords": [
+    "react"
+  ],
+  "description": "Implements some simple functionalities over react-dropzone that should solve most cases of file upload, delete and download, keeping all flexibility of dropzone, if needed.",
+  "main": "lib/index.js",
+  "bugs": {
+    "url": "???"
+  },
+  "files": [
+    "lib"
+  ],
+  "peerDependencies": {
+    "axios": ">=0.15",
+    "react": ">=14",
+    "react-dom": ">=14",
+    "react-redux": ">=5",
+    "redux": ">=3",
+    "redux-form": ">=6.6"
+  },
+  "dependencies": {
+    "react": ">=14",
+    "react-dom": ">=14",
+    "react-redux": ">=5",
+    "redux": ">=3",
+    "redux-form": ">=6.6",
+
+    "react-dropzone-component": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-jest": "^17.0.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "material-ui": "^0.18.3",
+    "react-scripts": "^1.0.7",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "scripts": {
+    "start-sample": "react-scripts start",
+    "build-sample": "react-scripts build",
+    "build-lib": "babel src/lib -d lib",
+    "publish": "yarn publish"
+  }
+}
