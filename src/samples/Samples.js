@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { SimpleReactDropzone } from '../ui/SimpleReactDropzone'; //'simple-react-dropzone';
+import { SimpleReactDropzone } from '../lib/ui/SimpleReactDropzone'; //'simple-react-dropzone';
 
 const Counter = props => (<span>{props.counter} segundos</span>);
 
 const Separator = props => (<div><br/><hr/>{props.title}</div>);
 
-const url = 'http://chicobento.synergia.dcc.ufmg.br:8082/';
+const url = 'http://localhost:8082/';
 
 class Samples extends Component {
 

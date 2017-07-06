@@ -1,6 +1,6 @@
 {
   "name": "simple-react-dropzone",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "LGPL-3.0",
   "author": "lucas.issa@gmail.com",
   "keywords": [
@@ -9,11 +9,15 @@
   "description": "Implements some simple functionalities over react-dropzone that should solve most cases of file upload, delete and download, keeping all flexibility of dropzone, if needed.",
   "main": "lib/index.js",
   "bugs": {
-    "url": "???"
+    "url": "https://github.com/lucas-issa/simple-react-dropzone/issues"
   },
   "files": [
     "lib"
   ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lucas-issa/simple-react-dropzone"
+  },
   "peerDependencies": {
     "axios": ">=0.15",
     "react": ">=14",
