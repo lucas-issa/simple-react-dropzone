@@ -45,7 +45,6 @@
   "scripts": {
     "start-sample": "react-scripts start",
     "build-sample": "react-scripts build",
-    "build-lib": "babel src/lib -d lib",
-    "publish": "yarn publish"
+    "build-lib": "babel src/lib -d lib"
   }
 }
