@@ -88,6 +88,7 @@ class Samples extends Component {
             ref={ref => this.refSimpleReactDropzone = ref}
             existingFiles={this.state.existingFiles2}
             imediateRemove={false}
+            maxFiles={2}
             onChange={e => {
               console.log('*** onChange (delayedRemove)', e);
               this.setState({uploadState: {...e.newState}});
@@ -96,13 +97,13 @@ class Samples extends Component {
           {this.state.uploadState.newUploadedFiles.length > 0 &&
             <div>
               Arquivos adicionados ({this.state.uploadState.newUploadedFiles.length}):
-              {this.state.uploadState.newUploadedFiles.map((file, i) => <div key={i}>{file.name}</div>)}
+              {this.state.uploadState.newUploadedFiles.map((file, i) => <div key={i}>fileId: {file}</div>)}
             </div>
           }
           {this.state.uploadState.alreadyAssociatedRemovedFiles.length > 0 &&
           <div>
             Arquivos removidos ({this.state.uploadState.alreadyAssociatedRemovedFiles.length}):
-            {this.state.uploadState.alreadyAssociatedRemovedFiles.map((file, i) => <div key={i}>{file.name}</div>)}
+            {this.state.uploadState.alreadyAssociatedRemovedFiles.map((file, i) => <div key={i}>fileId: {file}</div>)}
           </div>
           }
           <div

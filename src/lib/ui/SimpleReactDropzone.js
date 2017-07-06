@@ -95,6 +95,10 @@ export class SimpleReactDropzone extends React.PureComponent {
   alreadyAssociatedRemovedFiles = [];
   filesToDelete = [];
 
+  /**
+   * Needs a internal value because existing files has to be subtracted.
+   */
+  internalMaxFiles;
 
   constructor(props) {
     super(props);
@@ -104,12 +108,15 @@ export class SimpleReactDropzone extends React.PureComponent {
         this.dropzoneInit(myDropzone);
       },
     };
+
+    this.calculateAndSetMaxFiles(props);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.existingFiles !== nextProps.existingFiles) {
       this.clearAlreadyAssociatedFiles();
       this.setExistingFiles(nextProps.existingFiles);
+      this.calculateAndSetMaxFiles(nextProps);
       this.fireChangeEvent('setExistingFiles', nextProps.existingFiles);
     }
 
@@ -117,6 +124,18 @@ export class SimpleReactDropzone extends React.PureComponent {
       this.setDisableAddActions(nextProps);
     }
   }
+
+  calculateAndSetMaxFiles = (props) => {
+    if (props.maxFiles) {
+      let existingFileCount = props.existingFiles ? props.existingFiles.length : 0;
+      let removedExistingFilesCount =
+        this.alreadyAssociatedRemovedFiles ? this.alreadyAssociatedRemovedFiles.length : 0;
+      this.internalMaxFiles = props.maxFiles - (existingFileCount - removedExistingFilesCount);
+      if (this.myDropzone) {
+        this.myDropzone.options.maxFiles = this.internalMaxFiles;
+      }
+    }
+  };
 
   dropzoneInit = (myDropzone) => {
 
@@ -132,7 +151,8 @@ export class SimpleReactDropzone extends React.PureComponent {
     this.setDisableAddActions(this.props);
 
     myDropzone.on('addedfile', (file) => {
-      console.log('addedfile: ', file);
+
+      // console.log('addedfile: ', file);
 
       if (typeof file.lastModifiedDate === 'string') {
         file.lastModifiedDate = new Date(file.lastModifiedDate);
@@ -164,6 +184,7 @@ export class SimpleReactDropzone extends React.PureComponent {
         }
       }
 
+      this.calculateAndSetMaxFiles(this.props);
       this.fireChangeEvent('addedfile', file);
 
     });
@@ -216,6 +237,7 @@ export class SimpleReactDropzone extends React.PureComponent {
       if (file.status === 'canceled') {
         defineInternalEventName(file.status);
       }
+      this.calculateAndSetMaxFiles(this.props);
       this.fireChangeEvent(internalEventName, file);
     });
 
@@ -329,14 +351,6 @@ export class SimpleReactDropzone extends React.PureComponent {
 
         // Make sure that there is no progress bar, etc...
         this.myDropzone.emit("complete", existingFile);
-      }
-
-      if (this.myDropzone.options.maxFiles) {
-        // If you use the maxFiles option, make sure you adjust it to the
-        // correct amount:
-        let existingFileCount = existingFiles.length; // The number of files already
-        // uploaded
-        this.myDropzone.options.maxFiles = this.myDropzone.options.maxFiles - existingFileCount;
       }
 
       delete this.isChangingFiles;
@@ -466,7 +480,7 @@ export class SimpleReactDropzone extends React.PureComponent {
       clickable,
       ...djsConfig,
       ...this.props.djsConfig,
-      maxFiles: this.props.maxFiles,
+      maxFiles: this.internalMaxFiles,
       maxFilesize: this.props.maxFilesize,
     };
 
