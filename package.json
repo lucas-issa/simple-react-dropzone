@@ -27,6 +27,7 @@
     "redux-form": ">=6.6"
   },
   "dependencies": {
+    "axios": ">=0.15",
     "react": ">=14",
     "react-dom": ">=14",
     "react-redux": ">=5",
