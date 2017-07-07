@@ -556,7 +556,12 @@ SimpleReactDropzone.propTypes = {
    * Um array de arquivos que devem ser exibidos inicialmente no componente.
    *
    */
-  existingFiles: PropTypes.array,
+  existingFiles: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    lastModifiedDate: PropTypes.string.isRequired,
+    size: PropTypes.number,
+  })),
 
   /**
    * O modo de operação que o componente deve funcionar.
