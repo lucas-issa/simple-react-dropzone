@@ -74,7 +74,7 @@ export const ReduxFormFieldSimpleReactDropzone = props => (
     {...props}
     component={SimpleReactDropzoneForReduxForm}
     validate={value => (
-      !props.required && validadeRequired(value, props.existingFiles)
+      props.required && validadeRequired(value, props.existingFiles)
     )}
   />
 );
@@ -82,6 +82,7 @@ export const ReduxFormFieldSimpleReactDropzone = props => (
 
 ReduxFormFieldSimpleReactDropzone.propTypes = {
   name: PropTypes.string.isRequired,
+  required: PropTypes.bool,
   uploadUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   uploadParams: PropTypes.object,
   existingFiles: PropTypes.array,
