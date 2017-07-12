@@ -124,6 +124,16 @@ class Samples extends Component {
             <RaisedButton label="Cancelar"
                           onTouchTap={e => {
                             this.refSimpleReactDropzone.reset();
+
+                            // Test update with new file lists.
+                            this.setState({
+                              existingFiles: [
+                                ...this.state.existingFiles,
+                              ],
+                              existingFiles2: [
+                                ...this.state.existingFiles2,
+                              ],
+                            });
                           }}
             />
           </div>

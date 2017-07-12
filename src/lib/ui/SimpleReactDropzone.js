@@ -91,6 +91,7 @@ export class SimpleReactDropzone extends React.PureComponent {
    */
   idComp;
 
+  existingFilesCopy = [];
   newUploadedFiles = [];
   alreadyAssociatedRemovedFiles = [];
   filesToDelete = [];
@@ -205,11 +206,13 @@ export class SimpleReactDropzone extends React.PureComponent {
 
         let removeFromServer = false;
 
-        if (file.status !== 'canceled') {
-          if (this.props.imediateRemove && file.errorOnDeleteFromServer) {
-            removeFromServer = true;
-          } else if (file.status !== 'error') {
-            removeFromServer = true;
+        if (!this.clearingAlreadyAssociatedFiles) {
+          if (file.status !== 'canceled') {
+            if (this.props.imediateRemove && file.errorOnDeleteFromServer) {
+              removeFromServer = true;
+            } else if (file.status !== 'error') {
+              removeFromServer = true;
+            }
           }
         }
 
@@ -230,7 +233,9 @@ export class SimpleReactDropzone extends React.PureComponent {
             this.newUploadedFiles.splice(indexToRemove, 1);
           }
         } else {
-          this.alreadyAssociatedRemovedFiles.push(file);
+          if (!this.clearingAlreadyAssociatedFiles) {
+            this.alreadyAssociatedRemovedFiles.push(file);
+          }
         }
       }
       // console.log('removedfile: ', file);
@@ -314,13 +319,14 @@ export class SimpleReactDropzone extends React.PureComponent {
     // }
     // this.myDropzone.emit("removeAllFiles");
 
-    if (this.myDropzone.files) {
-      for (let file of this.myDropzone.files) {
-        if (file.alreadyAssociated) {
-          this.myDropzone.removeFile(file);
-        }
+    this.clearingAlreadyAssociatedFiles = true;
+    if (this.existingFilesCopy) {
+      for (let file of this.existingFilesCopy) {
+        this.myDropzone.emit("removedfile", file);
       }
+      this.existingFilesCopy.slice(0, this.existingFilesCopy.length);
     }
+    delete this.clearingAlreadyAssociatedFiles;
 
     // this.newUploadedFiles.splice(0,this.newUploadedFiles.length);
     // this.alreadyAssociatedRemovedFiles.splice(0,this.alreadyAssociatedRemovedFiles.length);
@@ -333,12 +339,12 @@ export class SimpleReactDropzone extends React.PureComponent {
     if (existingFiles) {
       this.isChangingFiles = true;
 
-      existingFiles = existingFiles.map(existingFile => ({
+      this.existingFilesCopy = existingFiles.map(existingFile => ({
         ...existingFile,
         alreadyAssociated: true,
         type: '',
       }));
-      for (let existingFile of existingFiles) {
+      for (let existingFile of this.existingFilesCopy) {
         // this.myDropzone.addFile(existingFile);
         this.myDropzone.emit("addedfile", existingFile);
 
@@ -559,7 +565,7 @@ SimpleReactDropzone.propTypes = {
   existingFiles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    lastModifiedDate: PropTypes.string.isRequired,
+    lastModifiedDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     size: PropTypes.number,
   })),
 
