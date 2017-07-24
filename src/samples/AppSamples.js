@@ -13,13 +13,26 @@ injectTapEventPlugin();
 
 class AppSamples extends Component {
 
+  state = {
+    text: '',
+  };
+
   render() {
     return (
       <div>
         <MuiThemeProvider>
           <div className="App">
-            <TextField floatingLabelText="Teste" fullWidth={true} />
-            <Samples/>
+            <TextField
+              floatingLabelText="Controlled text field to test component updates"
+              value={this.state.text}
+              onChange={(e, text) => {
+                this.setState({
+                  text,
+                });
+              }}
+              fullWidth={true}
+            />
+            <Samples />
           </div>
         </MuiThemeProvider>
       </div>

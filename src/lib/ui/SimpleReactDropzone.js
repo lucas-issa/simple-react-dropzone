@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {defaultIcons} from './DefaultIcons';
-import {reactDragAndClickDefaultMessage} from './DefaultAdditionalMessages';
+import {reactDragAndClickDefaultMessage, noneFilesDefaultMessage} from './DefaultAdditionalMessages';
 import {defaultTranslation} from './DefaultTranslation';
 import {defaultPreviewTemplate} from './DefaultPreviewTemplate';
 import DropzoneComponent from 'react-dropzone-component';
@@ -248,9 +248,15 @@ export class SimpleReactDropzone extends React.PureComponent {
 
     myDropzone.on('success', (file, response) => {
 
-      if (file.xhr.status === 200) {
+      if (
+        (file.xhr && file.xhr.status === 200)
+        ||
+        file.status === 'success' // To support fake upload
+      ) {
         let jsonResponse = response;// JSON.parse(response);
-        file.id = jsonResponse.id;
+        if (jsonResponse.id !== undefined) {
+          file.id = jsonResponse.id;
+        }
 
         this.setDownloadLink(file);
       }
@@ -370,7 +376,16 @@ export class SimpleReactDropzone extends React.PureComponent {
     let linkElementContainer = file.previewElement.querySelector("div.dz-filename");
     let linkElement = linkElementContainer.querySelector("a.downloadLink");
     if (file.id) {
-      linkElement.href = `${downloadUrl}?fileId=${file.id}&fileName=${file.name}`;
+      let downloadUrlType = typeof downloadUrl;
+      if (downloadUrlType === 'string') {
+        linkElement.href = `${downloadUrl}?fileId=${file.id}&fileName=${file.name}`;
+      } else if (downloadUrlType === 'function') {
+        linkElement.onclick = () => {
+          downloadUrl(file);
+        };
+      } else {
+        console.error('downloadUrl property must be a string or a function');
+      }
     }
   };
 
@@ -503,7 +518,7 @@ export class SimpleReactDropzone extends React.PureComponent {
       localDjsConfig.clickable = false;
       localDjsConfig.dictDefaultMessage = '';
       if (!this.props.existingFiles || this.props.existingFiles.length === 0) {
-        defaultMessage = (<div style={{paddingTop: 35}}>Nenhum arquivo enviado</div>);
+        defaultMessage = (<div style={{paddingTop: 35}}>{this.props.noneFilesMessage || noneFilesDefaultMessage}</div>);
       } else {
         defaultMessage = '';
       }
@@ -551,7 +566,7 @@ SimpleReactDropzone.propTypes = {
   /**
    * Default: uploadUrl, but will use GET method and will add fileId parameter.
    */
-  downloadUrl: PropTypes.string,
+  downloadUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
   /**
    * Default: uploadUrl, but will use DELETE method and will add fileId parameter.
@@ -657,6 +672,10 @@ SimpleReactDropzone.propTypes = {
    */
   dragAndClickMessage: PropTypes.node,
 
+  /**
+   * Altera a mensagem padrão exibida pelo componente quando não tem nenhum arquivo a ser exibido.
+   */
+  noneFilesMessage: PropTypes.node,
 
 
   /**

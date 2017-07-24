@@ -11,3 +11,5 @@ export const reactDragAndClickDefaultMessage = (
     </div>
   </div>
 );
+
+export const noneFilesDefaultMessage = 'Nenhum arquivo enviado';
