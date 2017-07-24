@@ -19,7 +19,7 @@ To run this demo application and play with it run
 
 #### With redux-form
 
-```flow js
+```javascript
 
 import 'simple-react-dropzone/ui/css/filepicker.css'; // You can copy to your project and change.
 import 'simple-react-dropzone/ui/css/dropzone.css';   // You can copy to your project and change.
@@ -68,7 +68,7 @@ const UploadAndDownloadPanel = props => (
 
 #### Without redux-form
 
-```flow js
+```javascript
 
 import 'simple-react-dropzone/ui/css/filepicker.css'; // You can copy to your project and change.
 import 'simple-react-dropzone/ui/css/dropzone.css';   // You can copy to your project and change.
