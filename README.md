@@ -1,5 +1,10 @@
-There is a sample application of how to use in `src/samples`. 
-To run this sample application run `yarn run start-sample`.
+
+## Demo
+
+https://lucas-issa.github.io/simple-react-dropzone/
+
+The demo source code is located at `src/samples`. 
+To run this demo application and play with it run `yarn && yarn run start-sample`.
 
 
 ## How to use
