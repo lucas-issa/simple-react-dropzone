@@ -3,10 +3,19 @@
   "version": "0.1.7",
   "license": "LGPL-3.0",
   "author": "lucas.issa@gmail.com",
-  "keywords": [
-    "react"
-  ],
   "description": "Implements some simple functionalities over react-dropzone that should solve most cases of file upload, delete and download, keeping all flexibility of dropzone, if needed.",
+  "tags": [
+    "dropzone",
+    "redux-form",
+    "react",
+    "file-upload"
+  ],
+  "keywords": [
+    "dropzone",
+    "redux-form",
+    "react",
+    "file-upload"
+  ],
   "main": "lib/index.js",
   "bugs": {
     "url": "https://github.com/lucas-issa/simple-react-dropzone/issues"
