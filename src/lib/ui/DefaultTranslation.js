@@ -11,6 +11,6 @@ export const defaultTranslation = {
   dictCancelUploadConfirmation: "Tem certeza que deseja cancelar este envio?",
   dictRemoveFile: "Excluir arquivo",
   dictRemoveFileConfirmation: null,
-  dictMaxFilesExceeded: "Não pode ser enviado mais arquivos.",
+  dictMaxFilesExceeded: "Não podem ser enviado mais arquivos.",
   dictFileSizeUnits: { tb: "TB", gb: "GB", mb: "MB", kb: "KB", b: "b" },
 };
