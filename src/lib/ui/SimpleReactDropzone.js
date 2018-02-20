@@ -9,6 +9,7 @@ import DropzoneComponent from 'react-dropzone-component';
 // import 'dropzone/dist/dropzone.css';
 // import './SimpleReactDropzone.css';
 import axios from 'axios';
+import isEqual from 'lodash/isEqual';
 
 
 // TODO geral: Talvez colocar um "processando..." para esperar excluir o arquivo no servidor.
@@ -114,7 +115,7 @@ export class SimpleReactDropzone extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.existingFiles !== nextProps.existingFiles) {
+    if (!isEqual(this.props.existingFiles, nextProps.existingFiles)) {
       this.clearAlreadyAssociatedFiles();
       this.setExistingFiles(nextProps.existingFiles);
       this.calculateAndSetMaxFiles(nextProps);
