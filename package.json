@@ -1,6 +1,6 @@
 {
   "name": "simple-react-dropzone",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "license": "LGPL-3.0",
   "author": "lucas.issa@gmail.com",
   "description": "Implements some simple functionalities over react-dropzone that should solve most cases of file upload, delete and download, keeping all flexibility of dropzone, if needed.",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "axios": ">=0.15",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.4",
     "react": ">=14",
     "react-dom": ">=14",
     "react-dropzone-component": "^2.0.0",
