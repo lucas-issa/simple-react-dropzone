@@ -6,7 +6,7 @@ import { SimpleReactDropzone } from './SimpleReactDropzone';
 const errorStyle = {
   color: 'rgb(244, 67, 54)',
   fontSize: 12,
-  paddingTop: 2,
+  paddingTop: 6,
 };
 
 const countFiles = (value, existingFiles) => {
