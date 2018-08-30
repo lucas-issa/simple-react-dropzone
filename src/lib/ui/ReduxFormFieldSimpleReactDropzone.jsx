@@ -9,7 +9,7 @@ const errorStyle = {
   paddingTop: 2,
 };
 
-const validadeRequired = (value, existingFiles) => {
+const countFiles = (value, existingFiles) => {
   const { newUploadedFiles, alreadyAssociatedRemovedFiles } = value || {};
 
   const existingFilesCount = existingFiles ? existingFiles.length : 0;
@@ -21,6 +21,12 @@ const validadeRequired = (value, existingFiles) => {
   const filesCount = (
     (existingFilesCount - alreadyAssociatedRemovedFilesCount) + newUploadedFilesCount
   );
+
+  return filesCount;
+};
+
+const validadeRequired = (value, existingFiles) => {
+  const filesCount = countFiles(value, existingFiles);
 
   return (filesCount > 0 ? undefined : 'Campo obrigatório');
 };
@@ -74,7 +80,8 @@ export const ReduxFormFieldSimpleReactDropzone = props => (
     {...props}
     component={SimpleReactDropzoneForReduxForm}
     validate={value => (
-      props.required && validadeRequired(value, props.existingFiles)
+      (props.required && validadeRequired(value, props.existingFiles)) ||
+        (props.validade && props.validade(value, countFiles(value, props.existingFiles), props.existingFiles))
     )}
   />
 );
