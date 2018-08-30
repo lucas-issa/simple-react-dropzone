@@ -81,7 +81,7 @@ export const ReduxFormFieldSimpleReactDropzone = props => (
     component={SimpleReactDropzoneForReduxForm}
     validate={value => (
       (props.required && validadeRequired(value, props.existingFiles)) ||
-        (props.validade && props.validade(value, countFiles(value, props.existingFiles), props.existingFiles))
+        (props.validate && props.validate(value, countFiles(value, props.existingFiles), props.existingFiles))
     )}
   />
 );
