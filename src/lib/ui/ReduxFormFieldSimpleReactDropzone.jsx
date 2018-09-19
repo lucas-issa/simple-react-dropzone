@@ -75,16 +75,24 @@ class SimpleReactDropzoneForReduxForm extends React.Component {
 
 }
 
-export const ReduxFormFieldSimpleReactDropzone = props => (
-  <Field
-    {...props}
-    component={SimpleReactDropzoneForReduxForm}
-    validate={(value , allValues, reduxFormProps) => (
-      (props.required && validadeRequired(value, props.existingFiles)) ||
-        (props.validate && props.validate(value , allValues, reduxFormProps, countFiles(value, props.existingFiles)))
-    )}
-  />
-);
+export class ReduxFormFieldSimpleReactDropzone extends React.Component {
+
+  validate = (value , allValues, reduxFormProps) => (
+    (this.props.required && validadeRequired(value, this.props.existingFiles)) ||
+    (this.props.validate &&
+      this.props.validate(value , allValues, reduxFormProps, countFiles(value, this.props.existingFiles)))
+  );
+
+  render() {
+    return (
+      <Field
+        {...this.props}
+        component={SimpleReactDropzoneForReduxForm}
+        validate={this.validate}
+      />
+    );
+  }
+};
 
 
 ReduxFormFieldSimpleReactDropzone.propTypes = {
