@@ -147,6 +147,7 @@ export class SimpleReactDropzone extends React.PureComponent {
 
     this.myDropzone = myDropzone;
     setTimeout(() => {
+      this.clearAlreadyAssociatedFiles();
       this.setExistingFiles(this.props.existingFiles);
     });
 
@@ -331,7 +332,7 @@ export class SimpleReactDropzone extends React.PureComponent {
       for (let file of this.existingFilesCopy) {
         this.myDropzone.emit("removedfile", file);
       }
-      this.existingFilesCopy.slice(0, this.existingFilesCopy.length);
+      this.existingFilesCopy.splice(0, this.existingFilesCopy.length);
     }
     delete this.clearingAlreadyAssociatedFiles;
 
