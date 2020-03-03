@@ -505,6 +505,7 @@ export class SimpleReactDropzone extends React.PureComponent {
       ...this.props.djsConfig,
       maxFiles: this.internalMaxFiles,
       maxFilesize: this.props.maxFilesize,
+      acceptedFiles:this.props.acceptedFiles || null
     };
 
     let defaultMessage = (
