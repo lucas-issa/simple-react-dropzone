@@ -103,8 +103,12 @@ class MySimpleReactDropzone extends React.Component {
   }
 
   render() {
+    /* acceptedFiles recived a string with MIMETYPE and/or file extension
+    * If you do not use acceptedFiles, you going to see all files in the file selector
+    */ 
     return (
       <SimpleReactDropzone
+        acceptedFiles={'image/png, .pdf'}
         ref={ref => this.mySimpleReactDropzone = ref}
         deleteUrl={(file, onSuccess, onError) => {
           console.log('Fake server file delete. File name: ', file.fileName);
